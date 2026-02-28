@@ -12,6 +12,7 @@ public class Campaign
     public ushort MaxPlayers { get; set; }
     public string? Location  { get; set; }
     public string? Setting { get; set; }
+    public bool IsPublic { get; set; }
     public DateTime LastUpdated { get; set; } = DateTime.Now;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public List<CampaignMembership> CampaignMemberships { get; set; } = new List<CampaignMembership>();

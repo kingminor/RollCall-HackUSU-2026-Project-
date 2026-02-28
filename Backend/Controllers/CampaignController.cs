@@ -38,6 +38,7 @@ public class CampaignController : ControllerBase
             MaxPlayers = request.CampaignInfo.MaxPlayers,
             Location = request.CampaignInfo.Location,
             Setting = request.CampaignInfo.Setting,
+            IsPublic = request.CampaignInfo.IsPublic,
 
             ExperienceLevel = request.CampaignFilters.ExperienceLevel,
             CampaignLocationType = request.CampaignFilters.CampaignLocationType,
@@ -111,6 +112,16 @@ public class CampaignController : ControllerBase
         var campaigns = await _dbContext.Campaigns
             .Where(c => c.CampaignMemberships
                 .Any(m => m.PlayerUser.Id == user.Id))
+            .ToListAsync();
+
+        return Ok(campaigns);
+    }
+
+    [HttpPost("getPubicCampaigns")]
+    public async Task<IActionResult> GetPublicCampaigns()
+    {
+        var campaigns = await _dbContext.Campaigns
+            .Where(m => m.IsPublic)
             .ToListAsync();
 
         return Ok(campaigns);

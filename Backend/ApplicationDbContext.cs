@@ -27,6 +27,9 @@ public class ApplicationDbContext : IdentityDbContext<PlayerUser>
             .HasIndex(u => u.id)
             .IsUnique();
         
+        modelBuilder.Entity<Campaign>()
+            .HasIndex(u => u.IsPublic);
+        
         modelBuilder.Entity<CampaignMembership>()
             .HasIndex(m => new { m.CampaignId, m.PlayerUserId })
             .IsUnique();
