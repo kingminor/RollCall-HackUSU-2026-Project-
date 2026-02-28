@@ -210,7 +210,7 @@ public class CampaignController : ControllerBase
         }
     }
 
-    [HttpPost("approveJoinRequest")]
+    [HttpGet("approveJoinRequest/{campaignMembershipId}")]
     public async Task<IActionResult> ApproveJoinRequest(string campaignMembershipId)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -232,7 +232,7 @@ public class CampaignController : ControllerBase
         return Ok();
     }
     
-    [HttpPost("denyJoinRequest")]
+    [HttpGet("denyJoinRequest/{campaignMembershipId}")]
     public async Task<IActionResult> DenyJoinRequest(string campaignMembershipId)
     {
         var user = await _userManager.GetUserAsync(User);
