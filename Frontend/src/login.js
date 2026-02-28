@@ -22,7 +22,7 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     console.log(data);
     localStorage.setItem("token", data.token);
 
-    //window.location.href="/home.html";
+    window.location.href="/home.html";
 })
 
 //TODO - error handling

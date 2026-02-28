@@ -21,21 +21,4 @@ var object = {
     "IsApproved": true
 }
 
-export async function getCampaignInfo(campaignId, token) {
-    const options = {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'text/plain'
-        },
-        body: JSON.stringify({
-            string: campaignId,
-        })
-
-    }
-
-    const response = await fetch(API_URL + "/api/character/getCampaignMembership", options);
-    const json = await response.json()
-    console.log(json)
-    console.log(response)
-}
+export

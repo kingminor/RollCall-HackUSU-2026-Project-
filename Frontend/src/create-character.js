@@ -49,8 +49,8 @@ form.addEventListener('submit', async (e) => {
                 }
             })
         }
-        const response = await fetch(API_URL + '/api/character/createCharacter', options)
-        const responseData = await response.json()
+        const response = await fetch(API_URL + `/api/character/createCharacter/${campaignId}`, options)
+        const responseData = await response.body
         console.log('Response:', response)
         console.log(responseData)
 

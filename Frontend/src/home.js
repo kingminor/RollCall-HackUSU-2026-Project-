@@ -25,7 +25,30 @@ console.log(username);
 
 const campaignsHolder = document.querySelector("#campaigns");
 
-function campaignTemplate(campaign) {
+function campaignTemplatePublic(campaign) {
+    console.log(campaign.isPublic);
+    return `
+        <div class="campaign-wrapper folded" href="campaign.html?id=${campaign.id}">
+            <div class="campaign-head">
+                <div>
+                    <h2>${campaign.name}</h2>
+                    <p class="dm-name">DM: ${campaign.dm.userName}</p>
+                </div>
+                <p class="role ${campaign.dm.userName === username? "DM": "Player"}">${campaign.dm.userName === username? "DM" : "Player"}</p>
+                
+            </div>
+            <div class="players">
+                <span class="iconify" data-icon="heroicons:user"></span>
+                <p>${campaign.campaignMemberships} Player${campaign.campaignMemberships !== 1 ? "s": ""}</p>
+                <div class="pageFold"></div>
+            </div>
+            <p>${campaign.description}</p>
+            <button class="join ${campaign.isPublic === true ? "" : "hide"}" onClick="joinCampaign('${campaign.id}')">Join</button> 
+        </div>
+    `
+}
+
+function campaignTemplatePrivate(campaign) {
     return `
         <a class="campaign-wrapper folded" href="campaign.html?id=${campaign.id}">
             <div class="campaign-head">
@@ -38,7 +61,7 @@ function campaignTemplate(campaign) {
             </div>
             <div class="players">
                 <span class="iconify" data-icon="heroicons:user"></span>
-                <p>${campaign.campaignMemberships.length} Player${campaign.campaignMemberships.length !== 1 ? "s": ""}</p>
+                <p>${campaign.campaignMemberships} Player${campaign.campaignMemberships !== 1 ? "s": ""}</p>
                 <div class="pageFold"></div>
             </div>
             <p>${campaign.description}</p>
@@ -46,9 +69,30 @@ function campaignTemplate(campaign) {
     `
 }
 
+async function joinCampaign(campaignId) {
+    const token = localStorage.getItem("token");
+    const options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + token,
+        }
+    }
 
-function renderCampaign(campaigns) {
-    campaignsHolder.innerHTML = campaigns.map(campaignTemplate).join("");
+    const response = await fetch(API_URL + `/api/campaign/requestJoinCampaignId/${campaignId}`, options)
+    console.log(response)
+    const data = await response.json()
+    console.log(data)
+}
+
+window.joinCampaign = joinCampaign;
+
+function renderCampaign(campaigns, type) {
+    if(type === "user") {
+        campaignsHolder.innerHTML = campaigns.map(campaignTemplatePrivate).join("");
+    } else {
+        campaignsHolder.innerHTML = campaigns.map(campaignTemplatePublic).join("");
+    }
 }
 
 const navButtons = document.querySelectorAll("nav button");
@@ -95,7 +139,7 @@ async function setCampaigns(type) {
             campaigns = []
         }
     }
-    renderCampaign(campaigns);
+    renderCampaign(campaigns, type);
 }
 
 async function init() {
