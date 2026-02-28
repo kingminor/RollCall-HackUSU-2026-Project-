@@ -124,6 +124,7 @@ public class CharacterController : ControllerBase
                 {
                     CampaignName = m.Campaign.Name,
                     CampaignDescription = m.Campaign.Description,
+                    CampaignCode = m.Campaign.AlphaNumericJoinCode,
                     Id = m.Id,
                     DM = campaign.DM.UserName,
                     PlayerUserId = m.PlayerUserId,
