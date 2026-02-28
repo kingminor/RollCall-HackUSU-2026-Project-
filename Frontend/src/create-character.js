@@ -1,7 +1,12 @@
+import {API_URL} from "./main.js";
+
 const form = document.querySelector('.character-form');
 const errorDisplay = document.querySelector('.error');
+const params = new URLSearchParams(document.location.search);
+const campaignId = params.get('id');
+console.log(campaignId);
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     errorDisplay.textContent = '';
@@ -16,6 +21,39 @@ form.addEventListener('submit', (e) => {
     } else {
         // Form is valid, data is in validationResult.data
         console.log('Form data assembled:', validationResult.data);
+        const data = validationResult.data;
+        const options = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                name: data["char-name"],
+                class: data.class,
+                race: data.race,
+                background: data.background,
+                alignment: data.alignment,
+                personalityTraits: null,
+                ideals: null,
+                bonds: null,
+                flaws: null,
+                backstory: data.backstory,
+                Stats: {
+                    STRStat: data.str,
+                    DEXStat: data.dex,
+                    CONStat: data.con,
+                    INTStat: data.int,
+                    WISStat: data.wis,
+                    CHAStat: data.cha,
+                }
+            })
+        }
+        const response = await fetch(API_URL + '/api/character/createCharacter', options)
+        const responseData = await response.json()
+        console.log('Response:', response)
+        console.log(responseData)
+
         // Do something with validationResult.data here
     }
 });
