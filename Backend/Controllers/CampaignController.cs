@@ -13,12 +13,14 @@ namespace Backend.Controllers;
 public class CampaignController : ControllerBase
 {
     private readonly UserManager<PlayerUser> _userManager;
+    private readonly SignInManager<PlayerUser> _signInManager;
     private readonly ApplicationDbContext _dbContext;
 
-    public CampaignController(UserManager<PlayerUser> userManager, ApplicationDbContext context)
+    public CampaignController(UserManager<PlayerUser> userManager, ApplicationDbContext context, SignInManager<PlayerUser> signInManager)
     {
         _userManager = userManager;
         _dbContext = context;
+        _signInManager = signInManager;
     }
     
     [HttpPost("create")]
@@ -103,6 +105,7 @@ public class CampaignController : ControllerBase
     public async Task<IActionResult> GetMyCampaigns()
     {
         var user = await _userManager.GetUserAsync(User);
+        Console.WriteLine(user);
         if (user == null) return Unauthorized();
 
         var campaigns = await _dbContext.Campaigns
