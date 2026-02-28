@@ -22,7 +22,7 @@ public class CampaignController : ControllerBase
     }
     
     [HttpPost("create")]
-    public async Task<IActionResult> Create(CampaignInfoDTO campaignInfo, CampaignFiltersDTO campaignFilters)
+    public async Task<IActionResult> Create(CreateCampaignRequest request)
     {
         var user = await _userManager.GetUserAsync(User);
         
@@ -31,19 +31,20 @@ public class CampaignController : ControllerBase
         var campaign = new Campaign
         {
             DM = user,
-            Name = campaignInfo.Name,
-            Description = campaignInfo.Description,
-            MaxPlayers = campaignInfo.MaxPlayers,
-            Location = campaignInfo.Location,
-            Setting = campaignInfo.Setting,
-            ExperienceLevel = campaignFilters.ExperienceLevel,
-            CampaignLocationType = campaignFilters.CampaignLocationType,
-            Status = campaignFilters.Status,
-            PreferredPlaystyle = campaignFilters.PreferredPlaystyle,
-            CampaignTone = campaignFilters.CampaignTone,
-            SessionFrequency = campaignFilters.SessionFrequency,
-            StatSystem = campaignFilters.StatSystem,
-            ContentMaturity = campaignFilters.ContentMaturity
+            Name = request.CampaignInfo.Name,
+            Description = request.CampaignInfo.Description,
+            MaxPlayers = request.CampaignInfo.MaxPlayers,
+            Location = request.CampaignInfo.Location,
+            Setting = request.CampaignInfo.Setting,
+
+            ExperienceLevel = request.CampaignFilters.ExperienceLevel,
+            CampaignLocationType = request.CampaignFilters.CampaignLocationType,
+            Status = request.CampaignFilters.Status,
+            PreferredPlaystyle = request.CampaignFilters.PreferredPlaystyle,
+            CampaignTone = request.CampaignFilters.CampaignTone,
+            SessionFrequency = request.CampaignFilters.SessionFrequency,
+            StatSystem = request.CampaignFilters.StatSystem,
+            ContentMaturity = request.CampaignFilters.ContentMaturity
         };
 
         var campaignMembership = new CampaignMembership
@@ -92,7 +93,7 @@ public class CampaignController : ControllerBase
     public async Task<IActionResult> GetByAlphaCode(string alphacode)
     {
         var campaign = await _dbContext.Campaigns
-            .FindAsync(alphacode);
+            .FirstOrDefaultAsync(c => c.AlphaNumericJoinCode == alphacode);
         
         if (campaign == null) return NotFound();
         return Ok(campaign);
@@ -108,11 +109,135 @@ public class CampaignController : ControllerBase
             .Where(c => c.CampaignMemberships
                 .Any(m => m.PlayerUser.Id == user.Id))
             .ToListAsync();
-        
-        if (!campaigns.Any())
-            return NotFound();
 
         return Ok(campaigns);
+    }
+
+    [HttpPost("requestJoinCampaignId")]
+    public async Task<IActionResult> RequestJoinCampaignId(string id)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+        
+        var campaign = await _dbContext.Campaigns
+            .FindAsync(id);
+        if (campaign == null) return NotFound();
+
+        try
+        {
+            var campaignMembership = new CampaignMembership
+            {
+                Campaign = campaign,
+                PlayerUser = user,
+            };
+
+            campaign.CampaignMemberships.Add(campaignMembership);
+
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPost("requestJoinCampaignAlphaCode")]
+    public async Task<IActionResult> RequestJoinCampaignAlphaCode(string code)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+        
+        var campaign = await _dbContext.Campaigns
+            .FirstOrDefaultAsync(c => c.AlphaNumericJoinCode == code);
+        if (campaign == null) return NotFound();
+
+        try
+        {
+            var campaignMembership = new CampaignMembership
+            {
+                Campaign = campaign,
+                PlayerUser = user,
+            };
+
+            campaign.CampaignMemberships.Add(campaignMembership);
+
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPost("approveJoinRequest")]
+    public async Task<IActionResult> ApproveJoinRequest(string campaignMembershipId)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+        
+        var campaignMembership = await _dbContext.CampaignMemberships
+            .FindAsync(campaignMembershipId);
+        
+        if (campaignMembership == null) return NotFound();
+        
+        var campaign = await _dbContext.Campaigns
+            .FindAsync(campaignMembership.CampaignId);
+        
+        if (campaign == null) return NotFound();
+        if(campaign.DMId != user.Id) return Unauthorized();
+        
+        campaignMembership.IsApproved = true;
+        await _dbContext.SaveChangesAsync();
+        return Ok();
+    }
+    
+    [HttpPost("denyJoinRequest")]
+    public async Task<IActionResult> DenyJoinRequest(string campaignMembershipId)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+        
+        var campaignMembership = await _dbContext.CampaignMemberships
+            .FindAsync(campaignMembershipId);
+        
+        if (campaignMembership == null) return NotFound();
+        
+        var campaign = await _dbContext.Campaigns
+            .FindAsync(campaignMembership.CampaignId);
+        
+        if (campaign == null) return NotFound();
+        if(campaign.DMId != user.Id) return Unauthorized();
+        
+        campaignMembership.IsApproved = false;
+        await _dbContext.SaveChangesAsync();
+        return Ok();
+    }
+
+    [HttpDelete("leaveCampaign")]
+    public async Task<IActionResult> LeaveCampaign(string campaignId)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+        
+        var membership = await _dbContext.CampaignMemberships
+            .FirstOrDefaultAsync(m =>
+                m.CampaignId == campaignId &&
+                m.PlayerUserId == user.Id);
+        
+        if (membership == null) return NotFound();
+
+        try
+        {
+            _dbContext.CampaignMemberships.Remove(membership);
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
     
     private static readonly Random _random = new();

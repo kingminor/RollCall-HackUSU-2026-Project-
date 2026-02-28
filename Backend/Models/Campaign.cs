@@ -5,6 +5,7 @@ public class Campaign
 {
     public string id { get; set; } = Guid.NewGuid().ToString();
     public string? AlphaNumericJoinCode { get; set; }
+    public string DMId { get; set; }
     public PlayerUser DM { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }

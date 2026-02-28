@@ -3,7 +3,9 @@ namespace Backend.Models;
 public class CampaignMembership
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string CampaignId { get; set; }
     public Campaign Campaign { get; set; }
+    public string PlayerUserId { get; set; }
     public PlayerUser PlayerUser { get; set; }
     public Character? ActiveCharacter { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.Now;

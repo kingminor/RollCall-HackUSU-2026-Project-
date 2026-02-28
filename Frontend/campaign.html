@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Roll Call | Campaign</title>
     <script src="./src/main.js" type="module" defer></script>
+    <script src="./src/file-processing.js" type="module" defer></script>
     <link rel="stylesheet" href="./src/campaign.css">
 </head>
 <body>
@@ -56,6 +57,7 @@
                         </div>
                     </div>
                     <div class="ability-scores">
+                        <h4>Ability Scores</h4>
                         <div class="score">
                             <p><span class="iconify" data-icon="material-symbols:swords-outline"></span>Str</p>
                             <p>16</p>
@@ -94,6 +96,71 @@
                 </div>
             </div>
         </section>
+        <form class="character-form">
+            <div class="form-header">
+                <h2>Character Creation</h2>
+                <input type="file" id="pdf_upload" accept=".pdf"/>
+            </div>
+            <div class="character-info-form">
+                <h3>Basic Info</h3>
+                <div>
+                    <label for="char-name">Character Name <span>*</span></label>
+                    <input type="text" id="char-name"/>
+                </div>
+                <div>
+                    <label for="level">Level <span>*</span></label>
+                    <input type="text" id="level"/>
+                </div>
+                <div>
+                    <label for="race">Race<span>*</span></label>
+                    <input type="text" id="race"/>
+                </div>
+                <div>
+                    <label for="class">Class<span>*</span></label>
+                    <input type="text" id="class"/>
+                </div>
+                <div>
+                    <label for="background">Background<span>*</span></label>
+                    <input type="text" id="background"/>
+                </div>
+                <div>
+                    <label for="alignment">Alignment<span>*</span></label>
+                    <input type="text" id="alignment"/>
+                </div>
+            </div>
+            <div class="char-ablilty-score-form">
+                <h3>Ablility Scores</h3>
+                <div>
+                    <label for="str"><span class="iconify" data-icon="material-symbols:swords-outline"></span>Strength</label>
+                    <input type="number" id="str">
+                </div>
+                <div>
+                    <label for="dex"><span class="iconify" data-icon="material-symbols:electric-bolt-outline-rounded"></span>Dexterity</label>
+                    <input type="number" id="dex">
+                </div>
+                <div>
+                    <label for="con"><span class="iconify" data-icon="material-symbols:shield-outline"></span>Constitution</label>
+                    <input type="number" id="con">
+                </div>
+                <div>
+                    <label for="int"><span class="iconify" data-icon="ic:round-cloud-queue"></span>Intelligence</label>
+                    <input type="number" id="int">
+                </div>
+                <div>
+                    <label for="wis"><span class="iconify" data-icon="heroicons:eye"></span>Wisdom</label>
+                    <input type="number" id="wis">
+                </div>
+                <div>
+                    <label for="cha"><span class="iconify" data-icon="heroicons:chat-bubble-oval-left"></span>Charisma</label>
+                    <input type="number" id="cha">
+                </div>
+            </div>
+            <div class="character-backstory-form">
+                <label for="backstory">Backstory</label>
+                <textarea rows="4" cols="50" id="backstory"></textarea>
+            </div>
+            <button type="submit">Submit Character</button>
+        </form>
     </main>
 </body>
 </html>
