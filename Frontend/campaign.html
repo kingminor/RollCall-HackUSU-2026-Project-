@@ -31,11 +31,12 @@
         <section class="party">
             <h3>Party Characters</h3>
             <div class="party-info">
-                <div class="character">
+                <div class="character folded">
+                    <div class="pageFold"></div>
                     <div class="character-head">
                         <div class="character-name">
                             <h4>Character Name</h4>
-                            <p>Player: username</p>
+                            <p class="characterName">Player: username</p>
                         </div>
                         <p class="level">Level 4</p>
                     </div>
@@ -97,11 +98,12 @@
                 </div>
             </div>
         </section>
-        <form class="character-form">
+        <form class="character-form folded">
+            <div class="pageFold"></div>
             <div class="form-header">
                 <h2>Character Creation</h2>
                 <div id="file-input">
-                    <label for="pdf_upload">Import PDF Sheet</label>
+                    <label class="pdfUpload" for="pdf_upload">Import PDF Sheet</label>
                     <input type="file" id="pdf_upload" accept=".pdf"/>
                 </div>
 

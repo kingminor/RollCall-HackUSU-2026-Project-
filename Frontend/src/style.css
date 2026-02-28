@@ -58,6 +58,10 @@ header {
     text-decoration: none;
     color: black;
   }
+  #new-campaign:hover {
+    background-color: var(--main-border);
+    color: var(--paper-color);
+  }
   svg {
     height: 50px;
     width: 50px;

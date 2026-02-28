@@ -2,7 +2,7 @@
   --main-border: saddlebrown;
   --main-dark: rgb(84, 41, 10);
   --fold-shadow: rgb(248, 221, 188);
-  --paper-color: antiquewhite;
+  --paper-color: rgb(250, 235, 215);
   --error-red: rgb(214, 0, 0);
 }
 .folded {
