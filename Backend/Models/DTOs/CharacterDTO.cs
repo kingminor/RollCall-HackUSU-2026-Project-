@@ -14,4 +14,5 @@ public class CharacterDTO
     public string? Bonds  { get; set; }
     public string? Flaws  { get; set; }
     public string? Backstory { get; set; }
+    public StatDTO Stats { get; set; }
 }

@@ -51,7 +51,8 @@ public class CharacterController : ControllerBase
             Ideals = character.Ideals,
             Bonds =  character.Bonds,
             Flaws =  character.Flaws,
-            Backstory = character.Backstory
+            Backstory = character.Backstory,
+            Stats = character.Stats,
         };
 
         newCharacter.Player = user;

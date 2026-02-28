@@ -1,3 +1,5 @@
+using Backend.Models.DTOs;
+
 namespace Backend.Models ;
 using Backend.Models.Enums;
 
@@ -22,4 +24,5 @@ public class Character
     public string? Bonds  { get; set; }
     public string? Flaws  { get; set; }
     public string? Backstory { get; set; }
+    public StatDTO Stats { get; set; }
 }
