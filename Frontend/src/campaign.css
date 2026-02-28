@@ -139,7 +139,7 @@ h2 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto 1fr 1fr;
-    border: 2px solid black;
+    border: 2px solid var(--main-border);
     border-radius: 10px;
     padding: 2%;
     gap: 10px;
@@ -150,7 +150,7 @@ h2 {
 
 }
 .score {
-    border: 2px solid black;
+    border: 2px solid var(--main-border);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -279,7 +279,7 @@ button:hover {
 
 input, textarea {
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid var(--main-border);
 }
 
 .error {
