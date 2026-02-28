@@ -106,7 +106,6 @@ public class CampaignController : ControllerBase
     public async Task<IActionResult> GetMyCampaigns()
     {
         var user = await _userManager.GetUserAsync(User);
-        Console.WriteLine(user);
         if (user == null) return Unauthorized();
 
         var campaigns = await _dbContext.Campaigns
@@ -122,6 +121,8 @@ public class CampaignController : ControllerBase
     {
         var campaigns = await _dbContext.Campaigns
             .Where(m => m.IsPublic)
+            .Include(c => c.DM)
+            .Include(c => c.CampaignMemberships)
             .ToListAsync();
 
         return Ok(campaigns);
