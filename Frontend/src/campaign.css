@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: black;
+}
+
+body {
+    width: 100vw;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 5px double black;
+    padding: 10px;
+    margin-bottom: 10px;
+    height: 60px;
+}
+
+main {
+    width: 95%;
+    margin: auto;
+}
+a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.campaign-info {
+    display: flex;
+    gap: 40px;
+    div {
+        display: flex;
+        gap: 10px;
+    }
+}
+
+h2 {
+    font-size: 2rem;
+}
+.party {
+    h3 {
+        font-size: 1.2rem;
+    }
+}
+.party-info {
+    display: flex;
+}
+.character {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 40%;
+}
+.character-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.level {
+    background-color: black;
+}
