@@ -127,7 +127,28 @@ public class CharacterController : ControllerBase
                     PlayerUserId = m.PlayerUserId,
                     PlayerName = m.PlayerUser.UserName,
                     ActiveCharacter = m.ActiveCharacter != null 
-                        ? m.ActiveCharacter 
+                        ? new CharacterDTO
+                        {
+                            Name = m.ActiveCharacter.Name,
+                            Class = m.ActiveCharacter.Class,
+                            Race = m.ActiveCharacter.Race,
+                            Background = m.ActiveCharacter.Background,
+                            Alignment = m.ActiveCharacter.Alignment,
+                            PersonalityTraits = m.ActiveCharacter.PersonalityTraits,
+                            Ideals = m.ActiveCharacter.Ideals,
+                            Bonds = m.ActiveCharacter.Bonds,
+                            Flaws = m.ActiveCharacter.Flaws,
+                            Backstory = m.ActiveCharacter.Backstory,
+                            Stats = new StatDTO
+                            {
+                                STRStat = (byte)m.ActiveCharacter.STRStat,
+                                DEXStat =  (byte)m.ActiveCharacter.DEXStat,
+                                CONStat = (byte)m.ActiveCharacter.CONStat,
+                                INTStat =  (byte)m.ActiveCharacter.INTStat,
+                                WISStat =  (byte)m.ActiveCharacter.WISStat,
+                                CHAStat =  (byte)m.ActiveCharacter.CHAStat
+                            }
+                        }
                         : null,
                     IsApproved = m.IsApproved
                 })
