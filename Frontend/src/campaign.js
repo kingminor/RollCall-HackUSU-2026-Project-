@@ -39,6 +39,76 @@ function addUserTemplate(user) {
     `
 }
 
+function characterTemplate(character) {
+    return `                <div class="character folded">
+                    <div class="pageFold"></div>
+                    <div class="character-head">
+                        <div class="character-name">
+                            <h4>Character Name</h4>
+                            <p class="playerName">Player: ${character.playerName}</p>
+                            <p class="characterName">Player: ${character.characterName}</p>
+
+                        </div>
+                        <p class="level">Level: ${character.level}</p>
+                    </div>
+                    <div class="character-info">
+                        <div class="race">
+                            <p>Race</p>
+                            <p>${character.race}</p>
+                        </div>
+                        <div class="class">
+                            <p>Class</p>
+                            <p>${character.class}</p>
+                        </div>
+                        <div class="background">
+                            <p>Background</p>
+                            <p>${character.background}</p>
+                        </div>
+                        <div class="alignment">
+                            <p>Alignment</p>
+                            <p>${character.alignment}</p>
+                        </div>
+                    </div>
+                    <div class="ability-scores">
+                        <h4>Ability Scores</h4>
+                        <div class="score">
+                            <p><span class="iconify" data-icon="material-symbols:swords-outline"></span>Str</p>
+                            <p>${character.strStat}</p>
+                            <p>${Math.floor((character.str - 10) / 2)}</p>
+                        </div>
+                        <div class="score">
+                            <p><span class="iconify" data-icon="material-symbols:electric-bolt-outline-rounded"></span>Dex</p>
+                            <p>${character.dexStat}</p>
+                            <p>${Math.floor((character.dexStat - 10) / 2)}</p>
+                        </div>
+                        <div class="score">
+                            <p><span class="iconify" data-icon="material-symbols:shield-outline"></span>Con</p>
+                            <p>${character.conStat}</p>
+                            <p>${Math.floor((character.conStat - 10) / 2)}</p>
+                        </div>
+                        <div class="score">
+                            <p><span class="iconify" data-icon="ic:round-cloud-queue"></span>Int</p>
+                            <p>${character.intStat}</p>
+                            <p>${Math.floor((character.intStat - 10) / 2)}</p>
+                        </div>
+                        <div class="score">
+                            <p><span class="iconify" data-icon="heroicons:eye"></span>Wis</p>
+                            <p>${character.wisStat}</p>
+                            <p>${Math.floor((character.wisStat - 10) / 2)}</p>
+                        </div>
+                        <div class="score">
+                            <p><span class="iconify" data-icon="heroicons:chat-bubble-oval-left"></span>Cha</p>
+                            <p>${character.chaStat}</p>
+                            <p>${Math.floor((character.chaStat - 10) / 2)}</p>
+                        </div>
+                    </div>
+                    <div class="backstory">
+                        <h4>Backstory</h4>
+                        <p>${character.background}</p>
+                    </div>
+                </div>`
+}
+
 function charForm() {
     return `
             <form class="character-form folded">

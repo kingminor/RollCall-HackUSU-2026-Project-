@@ -290,3 +290,7 @@ input, textarea {
 .hide {
     display: none;
 }
+.approve,.deny {
+    margin: 0 auto;
+    width: 75px;
+}
