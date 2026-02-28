@@ -152,7 +152,7 @@ public class CampaignController : ControllerBase
         return Ok(campaigns);
     }
 
-    [HttpPost("requestJoinCampaignId")]
+    [HttpGet("requestJoinCampaignId/{id}")]
     public async Task<IActionResult> RequestJoinCampaignId(string id)
     {
         var user = await _userManager.GetUserAsync(User);
