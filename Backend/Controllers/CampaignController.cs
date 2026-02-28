@@ -123,6 +123,18 @@ public class CampaignController : ControllerBase
             .Where(m => m.IsPublic)
             .Include(c => c.DM)
             .Include(c => c.CampaignMemberships)
+            .Select(c => new CampaignDTO
+            {
+                Id = c.id,
+                Name = c.Name,
+                Description = c.Description,
+                IsPublic = c.IsPublic,
+                DM = new UserDTO
+                {
+                    Id = c.DMId,
+                    UserName = c.DM.UserName,
+                }
+            })
             .ToListAsync();
 
         return Ok(campaigns);
