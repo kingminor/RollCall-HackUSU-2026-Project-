@@ -55,11 +55,13 @@ svg {
     }
     button  {
         margin: auto;
+        margin-top: 5%;
         background-color: saddlebrown;
         border-radius: 10px;
         height: 30px;
         width: 60%;
         border: 2px solid saddlebrown;
+        cursor: pointer;
     }
     button:hover {
         background-color: rgb(84, 41, 10);

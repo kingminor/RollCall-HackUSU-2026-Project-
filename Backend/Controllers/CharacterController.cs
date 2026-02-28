@@ -111,7 +111,7 @@ public class CharacterController : ControllerBase
         return Ok(characters);
     }
 
-    [HttpGet("getCampaignMembership")]
+    [HttpPost("getCampaignMembership")]
     public async Task<IActionResult> GetCampaignMembership(string campaignId)
     {
         var user = await _userManager.GetUserAsync(User);
