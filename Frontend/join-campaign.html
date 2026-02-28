@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Roll Call | Join Campaign</title>
+    <script src="./src/main.js" type="module" defer></script>
+    <script src="./src/join-campaign.js" type="module" defer></script>
+    <link rel="stylesheet" href="./src/join-campaign.css">
+</head>
+<body>
+<header>
+    <div class="title">
+        <span class="iconify" data-icon="heroicons:book-open"></span>
+        <h1>Roll Call</h1>
+    </div>
+    <div class="links">
+        <a id="new-campaign" href="home.html">
+            <span class="iconify" data-icon="heroicons:arrow-left"></span>
+            Back to Campaigns</a>
+        <a id="logout" href="index.html"><span class="iconify" data-icon="heroicons:arrow-right-end-on-rectangle"></span></a>
+    </div>
+</header>
+    <main>
+        <section id="join">
+            <div class="join-header">
+                <span class="iconify" data-icon="heroicons:user-plus"></span>
+                <div>
+                    <h2>Join Campaign</h2>
+                    <p>Enter a code to join an existing campaign</p>
+                </div>
+            </div>
+            <form>
+                <label for="code">Campaign Code</label>
+                <input type="text" id="code" name="code">
+                <p>Ask your DM for the campaign code</p>
+                <button type="submit">Join Campaign</button>
+            </form>
+        </section>
+        <section id="create">
+            <div class="join-header">
+                <span class="iconify" data-icon="heroicons:plus-circle"></span>
+                <div>
+                    <h2>Create Campaign</h2>
+                    <p>Start a new adventure as Dungeon Master</p>
+                </div>
+            </div>
+            <form>
+                <label for="campaignName">Campaign Name<span>*</span></label>
+                <input type="text" id="campaignName" name="CampaignName">
+                <label for="description">Description</label>
+                <input type="text" id="description" name="Description">
+                <label for="tagSelector">Add Tags</label>
+                <select id="tagSelector">
+                    <option value="" disabled selected>Select a tag</option>
+                </select>
+
+                <div id="selectedTagsContainer"></div>
+                <p class="error"></p>
+                <button type="submit">Create Campaign</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
