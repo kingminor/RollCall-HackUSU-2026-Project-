@@ -136,7 +136,7 @@ public class CharacterController : ControllerBase
                     PlayerUserId = m.PlayerUserId,
                     PlayerName = m.PlayerUser.UserName,
                     ActiveCharacter = m.ActiveCharacter != null 
-                        ? m.ActiveCharacter.Id 
+                        ? m.ActiveCharacter 
                         : null,
                     IsApproved = m.IsApproved
                 })
@@ -155,7 +155,7 @@ public class CharacterController : ControllerBase
                 PlayerUserId = m.PlayerUserId,
                 PlayerName = m.PlayerUser.UserName,
                 ActiveCharacter = m.ActiveCharacter != null 
-                    ? m.ActiveCharacter.Id 
+                    ? m.ActiveCharacter
                     : null,
                 IsApproved = m.IsApproved
             })
