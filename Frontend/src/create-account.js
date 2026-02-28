@@ -1,7 +1,7 @@
 const loginForm = document.querySelector('.loginForm');
 const errorDisplay = document.querySelector('.error');
 
-loginForm.addEventListener('submit', (e) => {
+loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     // Clear previous errors
@@ -54,11 +54,29 @@ loginForm.addEventListener('submit', (e) => {
 
         // Assemble data into an object
         const accountData = {
+            userName: username,
             email: email,
-            username: username,
-            password: password // In a real app, never store plain text passwords!
+            password: password
         };
 
-        console.log("Account data assembled:", accountData);
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(accountData),
+        }
+
+        const response = await fetch("http://localhost:5263/api/auth/register", options)
+        console.log(response);
+        const data = await response.json();
+        console.log(data);
+        localStorage.setItem(token, data.token)
+        console.log("Account data assembled:", accountData.userName);
     }
 });
+
+//TODO
+//no spaces in user, only alphanumeric
+//capital,number,character in password
+//error handling

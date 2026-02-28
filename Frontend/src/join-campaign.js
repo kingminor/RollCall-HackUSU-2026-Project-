@@ -1,4 +1,6 @@
 // 1. Define the potential tags as an object
+import {API_URL} from "./main.js";
+
 const campaignTags = {
     "fantasy": "Fantasy",
     "horror": "Horror",
@@ -46,7 +48,7 @@ tagSelector.addEventListener('change', (event) => {
 const createForm = document.querySelector('#create form');
 const errorDisplay = document.querySelector('#create .error'); // Select the error paragraph
 
-createForm.addEventListener('submit', (event) => {
+createForm.addEventListener('submit', async (event) => {
     // Prevent the page from reloading
     event.preventDefault();
 
@@ -74,12 +76,45 @@ createForm.addEventListener('submit', (event) => {
     });
 
     // 4. Create the campaign object
+
     const campaignData = {
-        name: name,
-        description: description,
-        tags: selectedTags
-    };
+        "campaignInfo": {
+            "name": name,
+            "description": name,
+            "maxPlayers": 5,
+            "isPublic": true,
+            "location": "here",
+            "setting": "Middle Earth"
+        },
+        "campaignFilters": {
+            "experienceLevel": null,
+            "campaignLocationType": null,
+            "status": null,
+            "preferredPlaystyle": null,
+            "campaignTone": null,
+            "sessionFrequency": null,
+            "statSystem": null,
+            "contentMaturity": null
+        }
+    }
+
+    const token = localStorage.getItem('token');
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(campaignData),
+    }
+
+    const response = await fetch(API_URL + "/api/campaign/create", options);
+    console.log(response)
 
     // For now, just log it to the console to verify
     console.log('Campaign Data:', campaignData);
 });
+
+
+//TODO - isPublic, max players, error checking
