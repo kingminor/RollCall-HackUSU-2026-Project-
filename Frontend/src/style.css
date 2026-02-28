@@ -2,4 +2,148 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
+  color: black;
+}
+
+body {
+  width: 100vw;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 5px double black;
+  padding: 10px;
+  margin-bottom: 2%;
+}
+#new-campaign {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  margin-right: 20px;
+  height: 100%;
+}
+.title {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  svg {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  svg {
+    height: 50px;
+    width: 50px;
+    margin: auto;
+  }
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+}
+
+nav::before,
+nav::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background-color: black;
+}
+
+nav > div {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  button {
+    border: none;
+    outline: none;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: transparent;
+  }
+  button:hover {
+    background-color: transparent;
+  }
+  .selected {
+    background-color: black;
+    color: white;
+  }
+  .selected:hover {
+    background-color: #333333;
+  }
+}
+
+#campaigns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 90%;
+  margin: auto;
+  margin-top: 2%;
+}
+.campaign-wrapper {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 15px;
+}
+.campaign-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .role {
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 4px;
+    margin-bottom: 3px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .player {
+    background-color: lightgray;
+    color: black;
+  }
+}
+.dm-name {
+  color: #5b5b5b;
+  font-size: .8rem;
+  width: 100%;
+}
+.players {
+  margin-top: 10px;
+  color: darkgrey;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.players svg,
+.players p {
+  color: darkgrey;
 }

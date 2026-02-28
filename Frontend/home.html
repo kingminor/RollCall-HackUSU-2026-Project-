@@ -6,15 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roll Call | Home</title>
     <script type="module" src="/src/main.js" defer></script>
+    <link rel="stylesheet" href="/src/style.css" />
+
 </head>
 <body>
 <header>
-    <div id="header-icon"></div>
-    <h1>roll-call</h1>
-    <a id="new-campaign" href="new-campaign.html">New Campaign</a>
-    <a id="logout" href="index.html">Logout</a>
+    <div class="title">
+        <span class="iconify" data-icon="heroicons:book-open"></span>
+        <h1>Roll Call</h1>
+    </div>
+    <div class="links">
+        <a id="new-campaign" href="new-campaign.html">New Campaign</a>
+        <a id="logout" href="index.html"><span class="iconify" data-icon="heroicons:arrow-right-end-on-rectangle"></span></a>
+    </div>
 </header>
 <main>
+    <nav>
+        <div>
+            <button id="current-campaigns">Your Campaigns</button>
+            <button id="public-campaigns" class="selected">Public Campaigns</button>
+        </div>
+    </nav>
+    <section id="campaigns">
+        <a class="campaign-wrapper" href="campaign.html?id=1">
+            <div class="campaign-head">
+                <div>
+                    <h2>Title</h2>
+                    <p class="dm-name">DM: Bob</p>
+                </div>
+                <p class="role dm">DM</p>
+            </div>
+            <div class="players">
+                <span class="iconify" data-icon="heroicons:user"></span>
+                <p>4 Players</p>
+            </div>
+            <p>Description: Lorem Ipsum dolor si amet</p>
+        </a>
+        <a class="campaign-wrapper" href="campaign.html?id=2">
+            <div class="campaign-head">
+                <div>
+                    <h2>Title</h2>
+                    <p class="dm-name">DM: Bob</p>
+                </div>
+                <p class="role player">Player</p>
+            </div>
+            <div class="players">
+                <span class="iconify" data-icon="heroicons:user"></span>
+                <p>4 Players</p>
+            </div>
+            <p>Description: Lorem Ipsum dolor si amet</p>
+        </a>
+    </section>
 </main>
 </body>
 </html>
