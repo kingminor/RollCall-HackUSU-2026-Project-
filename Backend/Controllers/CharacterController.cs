@@ -159,7 +159,7 @@ public class CharacterController : ControllerBase
                     : null,
                 IsApproved = m.IsApproved
             })
-            .SingleOrDefaultAsync();
+            .ToListAsync();
 
         if (membershipDto == null)
             return Forbid();
