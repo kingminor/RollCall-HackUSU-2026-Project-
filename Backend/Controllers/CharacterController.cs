@@ -122,6 +122,8 @@ public class CharacterController : ControllerBase
                 .Where(m => m.CampaignId == campaignId)
                 .Select(m => new
                 {
+                    CampaignName = m.Campaign.Name,
+                    CampaignDescription = m.Campaign.Description,
                     Id = m.Id,
                     DM = campaign.DM.UserName,
                     PlayerUserId = m.PlayerUserId,
@@ -163,6 +165,8 @@ public class CharacterController : ControllerBase
             .Select(m => new
             {
                 Id = m.Id,
+                CampaignName = m.Campaign.Name,
+                CampaignDescription = m.Campaign.Description,
                 CampaignId = m.CampaignId,
                 PlayerUserId = m.PlayerUserId,
                 PlayerName = m.PlayerUser.UserName,
