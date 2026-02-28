@@ -116,5 +116,20 @@ createForm.addEventListener('submit', async (event) => {
     console.log('Campaign Data:', campaignData);
 });
 
+document.querySelector("#join form").addEventListener('submit', async (event) => {
+    const id = document.querySelector("#code").value
+    event.preventDefault();
+    const token = localStorage.getItem("token")
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        }
+    }
+
+    const response = await fetch(API_URL + `/api/campaign/requestJoinCampaignAlphaCode/${id}`, options);
+    console.log(response)
+})
+
 
 //TODO - isPublic, max players, error checking

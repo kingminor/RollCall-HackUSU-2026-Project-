@@ -143,6 +143,7 @@ if(campaignInfo[0].dm === username) {
     console.log(characters)
     console.log(addUsers)
     document.querySelector("#addChars").innerHTML = addUsers.map(user => addUserTemplate(user)).join("");
+    //TODO - display character array
 } else {
     const info = campaignInfo.filter(user => user.playerName === username);
     console.log(info)
