@@ -27,7 +27,7 @@ public class  AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(RegisterDTO model)
+    public async Task<IActionResult> Register([FromBody] RegisterDTO model)
     {
         var user = new PlayerUser
         {
@@ -49,7 +49,7 @@ public class  AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(LoginDTO model)
+    public async Task<IActionResult> Login([FromBody] LoginDTO model)
     {
         var user  = await _userManager.FindByEmailAsync(model.Email);
         if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
@@ -67,7 +67,8 @@ public class  AuthController : ControllerBase
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.NameIdentifier, user.Id)
+            new Claim(ClaimTypes.NameIdentifier, user.Id),
+            new Claim(ClaimTypes.Email, user.Email)
         };
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

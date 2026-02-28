@@ -6,7 +6,7 @@ public class Character
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string PlayerId { get; set; }
     public PlayerUser Player { get; set; }
-    public string CampaignId { get; set; }
+    public string? CampaignId { get; set; }
     public Campaign? Campaign { get; set; } = null;
     public DateTime DateCreated { get; set; } = DateTime.Now;
     public DateTime LastUpdated { get; set; } = DateTime.Now;
