@@ -132,9 +132,12 @@ public class CharacterController : ControllerBase
                 .Select(m => new
                 {
                     Id = m.Id,
+                    DM = campaign.DM.UserName,
                     PlayerUserId = m.PlayerUserId,
                     PlayerName = m.PlayerUser.UserName,
-                    ActiveCharacterId = m.ActiveCharacter,
+                    ActiveCharacter = m.ActiveCharacter != null 
+                        ? m.ActiveCharacter.Id 
+                        : null,
                     IsApproved = m.IsApproved
                 })
                 .ToListAsync();
@@ -142,14 +145,25 @@ public class CharacterController : ControllerBase
             return Ok(memberships);
         }
 
-        var membership = await _dbContext.CampaignMemberships
-            .SingleOrDefaultAsync(m => 
-                m.CampaignId == campaignId &&
-                m.PlayerUserId == user.Id);
+        var membershipDto = await _dbContext.CampaignMemberships
+            .Where(m => m.CampaignId == campaignId &&
+                        m.PlayerUserId == user.Id)
+            .Select(m => new
+            {
+                Id = m.Id,
+                CampaignId = m.CampaignId,
+                PlayerUserId = m.PlayerUserId,
+                PlayerName = m.PlayerUser.UserName,
+                ActiveCharacter = m.ActiveCharacter != null 
+                    ? m.ActiveCharacter.Id 
+                    : null,
+                IsApproved = m.IsApproved
+            })
+            .SingleOrDefaultAsync();
 
-        if (membership == null)
+        if (membershipDto == null)
             return Forbid();
 
-        return Ok(membership);
+        return Ok(membershipDto);
     }
 }
