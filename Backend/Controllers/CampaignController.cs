@@ -117,7 +117,7 @@ public class CampaignController : ControllerBase
         return Ok(campaigns);
     }
 
-    [HttpPost("getPubicCampaigns")]
+    [HttpGet("getPublicCampaigns")]
     public async Task<IActionResult> GetPublicCampaigns()
     {
         var campaigns = await _dbContext.Campaigns
