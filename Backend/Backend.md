@@ -6,8 +6,6 @@
 
 Vars
 
-- 
-
 - string: aboutme
 
 - Icollection(CampaignMembership): CampaignMemberships
@@ -45,10 +43,8 @@ Vars
 - DateTime: LastUpdated
 
 - ICollection(CampaignMembership): Members
-
-- bool: isarchived
-
-Enum Variables
+  
+  Enum Variables
 
 - ExperienceLevel?
 
@@ -364,15 +360,13 @@ Used to send what they are profiecent in
 
 ### CampaignController
 
-- `public async Task<IActionResult> CreateCampaign (Campaigninfo, campaign filters)`
+- `public async Task<IActionResult> CreateCampaign (Campaigninfo, campaign filters)`Returns ID of the created campaign
 
 - `public async Task<IActionResult>  UpdateCampaign (Campagininfo, campaign filters)` They will use the same DTO, update will just ignore a few fields and update exisiting item in DB instead of creating a new one
 
 - `public async Task<IActionResult> SearchCampaigns (CampaignFilters, string? name, string? description)` This will search for a campaign that fits the critera filted for, will return different json based on what is returned from the DB
 
 - `public async Task<IActionResult> GetCampaign (campaignID)` This returns a campaign based on id, returns 404 if no campaign is found.
-
-- `public async Task<IActionResult> ArchiveCampaign (campaignID)` This archive a campaign, ARCHIVED CAMPAIGNS ARE NOT EDITABLE AND WILL NOT SHOW UP IN SEARCH RESULTS, YOU CANNOT UNARCHIVE A CAMPAIGN.
 
 - `public async Task<IActionResult> RequestJoinCampaign (campaignID)` This is used to request to join a campaign, DM must aprove it.
 
@@ -402,3 +396,11 @@ Used to send what they are profiecent in
 - GetCharacterFromCampaign
 
 ### Hubs
+
+
+
+
+
+
+
+SPECIAL ENDS
