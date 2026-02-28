@@ -112,7 +112,7 @@ public class CharacterController : ControllerBase
     }
 
     [HttpGet("getCampaignMembership")]
-    public async Task<IActionResult> GetCampaignMembership(string campaignId)
+    public async Task<IActionResult> GetCampaignMembership(StringDTO campaignId)
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
