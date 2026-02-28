@@ -18,7 +18,7 @@ body {
     flex-direction: column;
     overflow: hidden;
     background-color: antiquewhite;
-    clip-path: polygon(0 0, calc(100% - 10%) 0, 100% 17%, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, calc(100% - 44px) 0,  100% calc(100% - 320px), 100% 100%, 0 100%);
 }
 .pageFold {
     position: absolute;
@@ -31,6 +31,11 @@ body {
     transform-origin: 100% 0%;
     box-shadow: inset 3px 3px 0 saddlebrown, 0px 3px 0 saddlebrown;
 
+}
+svg {
+    margin: 0 auto;
+    height: 50px;
+    width: 50px;
 }
 .loginForm {
     display: flex;
