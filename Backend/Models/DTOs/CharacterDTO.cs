@@ -1,17 +1,9 @@
-namespace Backend.Models ;
 using Backend.Models.Enums;
 
-public class Character
+namespace Backend.Models.DTOs;
+
+public class CharacterDTO
 {
-    public string Id { get; set; } = Guid.NewGuid().ToString();
-    public string PlayerId { get; set; }
-    public PlayerUser Player { get; set; }
-    public string CampaignId { get; set; }
-    public Campaign? Campaign { get; set; } = null;
-    public DateTime DateCreated { get; set; } = DateTime.Now;
-    public DateTime LastUpdated { get; set; } = DateTime.Now;
-    
-    //Info Strings
     public string? Name { get; set; }
     public string? Class { get; set; }
     public string? Race { get; set; }

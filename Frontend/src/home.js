@@ -13,7 +13,7 @@ const campaigns = [
         dm: "me2",
         role: "Player",
         players: 3,
-        description: "Lorem Ipsum Dolor Si Amet"
+        description: "Lorem Ipsum dolor"
     }
 ]
 
