@@ -6,7 +6,7 @@
 
 Vars
 
-- int: ProfilePictureId (interger ID relating to one of a few preset profile pictures)
+- 
 
 - string: aboutme
 
@@ -168,7 +168,7 @@ Info Items:
 
 ### CampaignStatus
 
-- Recuriting
+- recruiting
 
 - Ongoing
 
@@ -234,8 +234,6 @@ Info Items:
 
 - Teen
 
-- Mature
-
 - Adult
 
 ---
@@ -274,7 +272,7 @@ CampaignInfo holds info relating to the campaign that do not count as filters.
 
 - string: Description
 
-- Byte: Maxplayers
+- ushort: Maxplayers
 
 - bool: ispublic
 
