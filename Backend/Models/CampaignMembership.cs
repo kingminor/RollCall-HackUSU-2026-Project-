@@ -5,8 +5,8 @@ public class CampaignMembership
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public Campaign Campaign { get; set; }
     public PlayerUser PlayerUser { get; set; }
-    public Character ActiveCharacterId { get; set; }
+    public Character? ActiveCharacter { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.Now;
-    public DateTime LastUpdated { get; set; }
+    public DateTime LastUpdated { get; set; } = DateTime.Now;
     public bool IsApproved { get; set; }
 }

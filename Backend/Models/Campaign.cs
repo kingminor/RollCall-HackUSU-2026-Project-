@@ -13,7 +13,7 @@ public class Campaign
     public string? Setting { get; set; }
     public DateTime LastUpdated { get; set; } = DateTime.Now;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public ICollection<CampaignMembership>?  CampaignMemberships { get; set; }
+    public List<CampaignMembership> CampaignMemberships { get; set; } = new List<CampaignMembership>();
     
     //ENUMS
     public ExperienceLevel? ExperienceLevel { get; set; }
