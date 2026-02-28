@@ -83,6 +83,9 @@ public class CharacterController : ControllerBase
         if (linkingObject == null)
             return NotFound();
         
+        if (character.PlayerId != user.Id)
+            return Unauthorized();
+        
         linkingObject.ActiveCharacter = character;
 
         await _dbContext.SaveChangesAsync();
