@@ -21,7 +21,7 @@ const campaignsHolder = document.querySelector("#campaigns");
 
 function campaignTemplate(campaign) {
     return `
-        <a class="campaign-wrapper" href="campaign.html?id=${campaign.id}">
+        <a class="campaign-wrapper folded" href="campaign.html?id=${campaign.id}">
             <div class="campaign-head">
                 <div>
                     <h2>${campaign.name}</h2>
@@ -32,6 +32,7 @@ function campaignTemplate(campaign) {
             <div class="players">
                 <span class="iconify" data-icon="heroicons:user"></span>
                 <p>${campaign.players} Player${campaign.players > 1 ? "s": ""}</p>
+                <div class="pageFold"></div>
             </div>
             <p>${campaign.description}</p>
         </a>

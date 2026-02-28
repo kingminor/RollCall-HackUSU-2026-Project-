@@ -1,13 +1,18 @@
+@import url("./colors.css");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   color: black;
+  h1,h2 {
+    color: var(--main-border);
+  }
 }
 
 body {
   width: 100vw;
+  background-image: url("./parchment.png");
 }
 
 header {
@@ -15,13 +20,14 @@ header {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  border-bottom: 5px double black;
+  border-bottom: 5px double var(--main-border);
   padding: 10px;
   margin-bottom: 2%;
   height: 60px;
+  background-color: var(--paper-color);
 }
 #new-campaign {
-  border: 2px solid black;
+  border: 2px solid var(--main-border);
   border-radius: 10px;
   padding: 10px;
   margin-right: 20px;
@@ -31,6 +37,7 @@ header {
   font-size: 1.2rem;
   display: flex;
   align-items: center;
+  color: var(--main-border);
   svg {
     height: 50px;
     width: 50px;
@@ -66,7 +73,11 @@ nav::after {
   content: "";
   flex: 1;
   height: 2px;
-  background-color: black;
+  background-color: var(--main-border);
+}
+
+.campaignTypeSelector {
+  background-color: var(--paper-color);
 }
 
 nav > div {
@@ -74,7 +85,7 @@ nav > div {
   gap: 20px;
   align-items: center;
   justify-content: space-between;
-  border: 2px solid black;
+  border: 2px solid var(--main-border);
   padding: 10px;
   border-radius: 10px;
   button {
@@ -90,11 +101,11 @@ nav > div {
     background-color: transparent;
   }
   .selected {
-    background-color: black;
+    background-color: var(--main-border);
     color: white;
   }
   .selected:hover {
-    background-color: #333333;
+    background-color: var(--main-dark);
   }
 }
 
@@ -107,10 +118,26 @@ nav > div {
   margin-top: 2%;
 }
 .campaign-wrapper {
-  border: 2px solid black;
-  border-radius: 10px;
+  border: 2px solid var(--main-border);
+  background-color: var(--paper-color);
   padding: 15px;
   width: 350px;
+}
+.pageFold {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    background-color: var(--fold-shadow);
+    transform: rotate(0deg);
+    transform-origin: 100% 0%;
+    box-shadow: inset 3px 3px 0 saddlebrown, 0px 3px 0 saddlebrown;
+
+}
+.folded{
+    clip-path: polygon(0 0, calc(100% - 4%) 0, 100% 12.5%, 100% 100%, 0 100%);
+
 }
 .campaign-head {
   display: flex;
@@ -118,7 +145,7 @@ nav > div {
   justify-content: space-between;
   .role {
     text-align: center;
-    background-color: black;
+    background-color: var(--main-border);
     color: white;
     padding: 4px;
     margin-bottom: 3px;
@@ -128,7 +155,7 @@ nav > div {
     justify-content: center;
   }
   .player {
-    background-color: lightgray;
+    background-color: var(--fold-shadow);
     color: black;
   }
 }
@@ -139,7 +166,7 @@ nav > div {
 }
 .players {
   margin-top: 10px;
-  color: darkgrey;
+  color: var(--fold-shadow);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -147,5 +174,5 @@ nav > div {
 
 .players svg,
 .players p {
-  color: darkgrey;
+  color: var(--main-dark);
 }

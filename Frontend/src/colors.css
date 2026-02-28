@@ -1,0 +1,10 @@
+:root {
+  --main-border: saddlebrown;
+  --main-dark: rgb(84, 41, 10);
+  --fold-shadow: rgb(248, 221, 188);
+  --paper-color: antiquewhite;
+}
+.folded {
+    position: relative;
+    overflow: hidden;
+}
