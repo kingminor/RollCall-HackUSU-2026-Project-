@@ -29,6 +29,7 @@ public class  AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDTO model)
     {
+        Console.WriteLine("RegisterRequestSubmitted");
         var user = new PlayerUser
         {
             UserName = model.UserName,
