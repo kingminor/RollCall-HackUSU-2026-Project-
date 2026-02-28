@@ -185,3 +185,7 @@ nav > div {
 .players p {
   color: var(--main-dark);
 }
+
+.hide {
+  display: none;
+}

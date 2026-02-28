@@ -286,3 +286,7 @@ input, textarea {
 .error {
     color: var(--error-red);
 }
+
+.hide {
+    display: none;
+}

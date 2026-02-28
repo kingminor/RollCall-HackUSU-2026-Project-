@@ -34,68 +34,59 @@ public class CharacterController : ControllerBase
         return Ok(characters);
     }
 
-    [HttpPost("createCharacter")]
-    public async Task<IActionResult> CreateCharacter(CharacterDTO character)
+    [HttpPost("createCharacter/{campaignId}")]
+    public async Task<IActionResult> CreateCharacter([FromBody] CharacterDTO characterDto, string campaignId)
     {
         var user = await _userManager.GetUserAsync(User);
-        if (user == null) return Unauthorized();
+        if (user == null)
+            return Unauthorized();
+
+        // Verify user is part of the campaign
+        var membership = await _dbContext.CampaignMemberships
+            .FirstOrDefaultAsync(c =>
+                c.PlayerUserId == user.Id &&
+                c.CampaignId == campaignId);
+
+        if (membership == null)
+            return NotFound("User is not a member of this campaign.");
 
         var newCharacter = new Character
         {
-            Name =  character.Name,
-            Class =  character.Class,
-            Race =   character.Race,
-            Background = character.Background,
-            Alignment = character.Alignment,
-            PersonalityTraits = character.PersonalityTraits,
-            Ideals = character.Ideals,
-            Bonds =  character.Bonds,
-            Flaws =  character.Flaws,
-            Backstory = character.Backstory,
-            STRStat = character.Stats.STRStat,
-            DEXStat = character.Stats.DEXStat,
-            CONStat = character.Stats.CONStat,
-            INTStat = character.Stats.INTStat,
-            WISStat = character.Stats.WISStat,
-            CHAStat = character.Stats.CHAStat
+            Name = characterDto.Name,
+            Class = characterDto.Class,
+            Race = characterDto.Race,
+            Background = characterDto.Background,
+            Alignment = characterDto.Alignment,
+            PersonalityTraits = characterDto.PersonalityTraits,
+            Ideals = characterDto.Ideals,
+            Bonds = characterDto.Bonds,
+            Flaws = characterDto.Flaws,
+            Backstory = characterDto.Backstory,
+            STRStat = characterDto.Stats.STRStat,
+            DEXStat = characterDto.Stats.DEXStat,
+            CONStat = characterDto.Stats.CONStat,
+            INTStat = characterDto.Stats.INTStat,
+            WISStat = characterDto.Stats.WISStat,
+            CHAStat = characterDto.Stats.CHAStat,
+            Player = user
         };
-
-        newCharacter.Player = user;
 
         try
         {
+            // Add character
             user.Characters.Add(newCharacter);
-            _dbContext.SaveChanges();
-            return Ok(newCharacter);
+
+            // Link character to campaign
+            membership.ActiveCharacter = newCharacter;
+
+            await _dbContext.SaveChangesAsync();
+
+            return Ok(new { characterId = newCharacter.Id });
         }
         catch (Exception e)
         {
-            return  BadRequest(e.Message);    
+            return BadRequest(e.Message);
         }
-    }
-
-    [HttpPost("linkCharacterToCampaign")]
-    public async Task<IActionResult> LinkCharacterToCampaign(CharacterAndCampaignDTO characterAndCampaignDto)
-    {
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null) return Unauthorized();
-
-        var linkingObject = await _dbContext.CampaignMemberships
-            .FirstOrDefaultAsync(c => c.PlayerUserId == user.Id && c.CampaignId == characterAndCampaignDto.campaignId);
-
-        var character = await _dbContext.Characters
-            .FindAsync(characterAndCampaignDto.characterID);
-
-        if (linkingObject == null)
-            return NotFound();
-        
-        if (character.PlayerId != user.Id)
-            return Unauthorized();
-        
-        linkingObject.ActiveCharacter = character;
-
-        await _dbContext.SaveChangesAsync();
-        return Ok();
     }
 
     [HttpGet("getCharacterByCampaignId")]

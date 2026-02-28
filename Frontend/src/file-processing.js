@@ -12,11 +12,6 @@ fileInput.addEventListener('change', async (e) => {
     const form = pdfDoc.getForm()
     const fields = form.getFields()
 
-    console.log(arrayBuffer);
-    console.log(pdfDoc);
-    console.log(form);
-    console.log(fields);
-
     const extractedData = {};
 
     fields.forEach(field => {
@@ -101,7 +96,6 @@ function fillForm(charData) {
     Object.keys(fieldMap).forEach(key => {
         const elementId = fieldMap[key];
         const element = document.getElementById(elementId);
-        console.log(element)
 
         if (element && charData[key] !== undefined) {
             console.log(charData[key]);
