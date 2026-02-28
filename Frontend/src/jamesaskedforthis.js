@@ -26,9 +26,11 @@ export async function getCampaignInfo(campaignId, token) {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain'
         },
-        body: JSON.stringify({campaignId}),
+        body: JSON.stringify({
+            string: campaignId,
+        })
 
     }
 
