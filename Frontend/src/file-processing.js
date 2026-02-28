@@ -1,6 +1,7 @@
 import { PDFDocument, PDFTextField, PDFCheckBox } from 'pdf-lib';
 
 const fileInput = document.getElementById('pdf_upload');
+const errorMsg = document.querySelector('.error');
 
 fileInput.addEventListener('change', async (e) => {
     const file = e.target.files[0];
@@ -22,6 +23,8 @@ fileInput.addEventListener('change', async (e) => {
         const name = field.getName();
         let value = '';
 
+        errorMsg.innerHTML = '';
+
         // Check by instance instead of constructor name string
         if (field instanceof PDFTextField) {
             value = field.getText();
@@ -35,23 +38,27 @@ fileInput.addEventListener('change', async (e) => {
         extractedData[name] = value;
     });
 
-
-    console.log(extractedData);
-    const data = {
-        name: extractedData[CharacterName],
-        playerName: extractedData[PlayerName],
-        level: sumLevelString(extractedData[ClassLevel]),
-        race: extractedData[Race],
-        class: extractedData[ClassLevel],
-        background: extractedData[Background],
-        alignment: extractedData[Alignment],
-        str: extractedData[STR],
-        dex: extractedData[DEX],
-        con: extractedData[CON],
-        int: extractedData[INT],
-        wis: extractedData[WIS],
-        cha: extractedData[CHA]
+    if (Object.keys(extractedData).length === 0) {
+        errorMsg.innerHTML = "No data could be retrieved from the PDF.";
+        return;
     }
+
+    const data = {
+        name: extractedData.CharacterName || "",
+        playerName: extractedData.PlayerName || "",
+        level: sumLevelString(extractedData.ClassLevel),
+        race: extractedData["Race "] || "",
+        class: extractedData.ClassLevel || "",
+        background: extractedData.Background || "",
+        alignment: extractedData.Alignment || "",
+        str: extractedData.STR || 0,
+        dex: extractedData.DEX || 0,
+        con: extractedData.CON || 0,
+        int: extractedData.INT || 0,
+        wis: extractedData.WIS || 0,
+        cha: extractedData.CHA || 0
+    };
+    fillForm(data)
 })
 
 /*
@@ -73,6 +80,38 @@ Character sheet object
 
 */
 
+function fillForm(charData) {
+    console.log(charData);
+    // Map of data keys to HTML Input IDs
+    const fieldMap = {
+        name: 'char-name',
+        level: 'level',
+        race: 'race',
+        class: 'class',
+        background: 'background',
+        alignment: 'alignment',
+        str: 'str',
+        dex: 'dex',
+        con: 'con',
+        int: 'int',
+        wis: 'wis',
+        cha: 'cha'
+    };
+
+    Object.keys(fieldMap).forEach(key => {
+        const elementId = fieldMap[key];
+        const element = document.getElementById(elementId);
+        console.log(element)
+
+        if (element && charData[key] !== undefined) {
+            console.log(charData[key]);
+            element.value = charData[key];
+        }
+    });
+
+    console.log("Form successfully populated!");
+}
+
 function sumLevelString(str) {
     if (!str) return 0;
 
@@ -84,3 +123,5 @@ function sumLevelString(str) {
     // Convert strings to numbers and sum them
     return matches.reduce((acc, curr) => acc + parseInt(curr, 10), 0);
 }
+
+//TODO - error checking, message
