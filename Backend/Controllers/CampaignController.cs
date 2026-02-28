@@ -181,7 +181,7 @@ public class CampaignController : ControllerBase
         }
     }
 
-    [HttpPost("requestJoinCampaignAlphaCode")]
+    [HttpGet("requestJoinCampaignAlphaCode/{code}")]
     public async Task<IActionResult> RequestJoinCampaignAlphaCode(string code)
     {
         var user = await _userManager.GetUserAsync(User);
