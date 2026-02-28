@@ -129,6 +129,14 @@ public class CharacterController : ControllerBase
         {
             var memberships = await _dbContext.CampaignMemberships
                 .Where(m => m.CampaignId == campaignId)
+                .Select(m => new
+                {
+                    Id = m.Id,
+                    PlayerUserId = m.PlayerUserId,
+                    PlayerName = m.PlayerUser.UserName,
+                    ActiveCharacterId = m.ActiveCharacter,
+                    IsApproved = m.IsApproved
+                })
                 .ToListAsync();
 
             return Ok(memberships);
