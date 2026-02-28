@@ -133,7 +133,8 @@ public class CampaignController : ControllerBase
                 {
                     Id = c.DMId,
                     UserName = c.DM.UserName,
-                }
+                },
+                CampaignMemberships = c.CampaignMemberships
             })
             .ToListAsync();
 

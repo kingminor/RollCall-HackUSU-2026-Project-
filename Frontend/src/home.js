@@ -38,7 +38,7 @@ function campaignTemplate(campaign) {
             </div>
             <div class="players">
                 <span class="iconify" data-icon="heroicons:user"></span>
-                <p>${campaign.campaignMemberships.length} Player${campaign.players !== 1 ? "s": ""}</p>
+                <p>${campaign.campaignMemberships.length} Player${campaign.campaignMemberships.length !== 1 ? "s": ""}</p>
                 <div class="pageFold"></div>
             </div>
             <p>${campaign.description}</p>
