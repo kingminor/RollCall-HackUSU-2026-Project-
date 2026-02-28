@@ -228,7 +228,7 @@ Returns list of characters owned by user.
 
 ### Request Body
 
-```json  
+```json
 {  
   "name": "string",  
   "class": "string",  
@@ -356,3 +356,4 @@ You may standardize in future:
   "message": "Error description",  
   "statusCode": 400  
 }
+```
