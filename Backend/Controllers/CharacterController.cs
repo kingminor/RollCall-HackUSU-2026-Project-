@@ -110,14 +110,8 @@ public class CharacterController : ControllerBase
         
         return Ok(characters);
     }
-
-<<<<<<< HEAD
     [HttpPost("getCampaignMembership")]
-    public async Task<IActionResult> GetCampaignMembership(string campaignId)
-=======
-    [HttpGet("getCampaignMembership")]
     public async Task<IActionResult> GetCampaignMembership(StringDTO campaignId)
->>>>>>> 7e4fb789a5a8b0f267bb7eb0179a77cd1e7ff0c1
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
