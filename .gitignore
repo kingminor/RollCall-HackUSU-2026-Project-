@@ -93,3 +93,5 @@ _ReSharper*/
 
 # Dotnet watch
 dotnet-watch/
+
+node_modules/
