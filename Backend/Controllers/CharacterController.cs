@@ -61,7 +61,7 @@ public class CharacterController : ControllerBase
         {
             user.Characters.Add(newCharacter);
             _dbContext.SaveChanges();
-            return Ok($"newCharacter.Id");
+            return Ok($"{newCharacter.Id}");
         }
         catch (Exception e)
         {
