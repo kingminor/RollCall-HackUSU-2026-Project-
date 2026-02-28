@@ -99,7 +99,11 @@
         <form class="character-form">
             <div class="form-header">
                 <h2>Character Creation</h2>
-                <input type="file" id="pdf_upload" accept=".pdf"/>
+                <div id="file-input">
+                    <label for="pdf_upload">Import PDF Sheet</label>
+                    <input type="file" id="pdf_upload" accept=".pdf"/>
+                </div>
+
             </div>
             <div class="character-info-form">
                 <h3>Basic Info</h3>
@@ -157,7 +161,7 @@
             </div>
             <div class="character-backstory-form">
                 <label for="backstory">Backstory</label>
-                <textarea rows="4" cols="50" id="backstory"></textarea>
+                <textarea rows="7" cols="50" id="backstory"></textarea>
             </div>
             <button type="submit">Submit Character</button>
         </form>
