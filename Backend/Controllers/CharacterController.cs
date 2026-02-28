@@ -52,7 +52,12 @@ public class CharacterController : ControllerBase
             Bonds =  character.Bonds,
             Flaws =  character.Flaws,
             Backstory = character.Backstory,
-            Stats = character.Stats,
+            STRStat = character.Stats.STRStat,
+            DEXStat = character.Stats.DEXStat,
+            CONStat = character.Stats.CONStat,
+            INTStat = character.Stats.INTStat,
+            WISStat = character.Stats.WISStat,
+            CHAStat = character.Stats.CHAStat
         };
 
         newCharacter.Player = user;
@@ -104,5 +109,34 @@ public class CharacterController : ControllerBase
             .ToListAsync();
         
         return Ok(characters);
+    }
+
+    [HttpGet("getCampaignMembership")]
+    public async Task<IActionResult> GetCampaignMembership(string campaignId)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        var campaign = await _dbContext.Campaigns
+            .FindAsync(campaignId);
+        
+        if (campaign == null) return NotFound();
+
+        if (campaign.DMId == user.Id)
+        {
+            var campaigns = await _dbContext.CampaignMemberships
+                .Where(m => m.CampaignId == campaignId)
+                .ToListAsync();
+
+            return Ok(campaigns);
+        }
+        else
+        {
+            var myCampaign = await _dbContext.CampaignMemberships
+                .Where(m => m.CampaignId == campaignId && m.PlayerUserId == user.Id)
+                .ToListAsync();
+            
+            return Ok(myCampaign);
+        }
     }
 }
