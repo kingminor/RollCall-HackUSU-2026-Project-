@@ -27,12 +27,12 @@ async function getCampaignInfo() {
 
 function addUserTemplate(user) {
     return `
-    <div id="${user.id}">
+    <div id="${user.id}" class="addUser">
         <p>${user.playerName}</p>
-        <button
+        <button class="approve"
             onClick="approve('${user.id}')""
         >Approve</button>
-        <button
+        <button class="deny"
             onClick="deny('${user.id}')"
         >Deny</button>
     </div>
