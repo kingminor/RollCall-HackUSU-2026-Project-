@@ -66,7 +66,7 @@ public class CharacterController : ControllerBase
         {
             user.Characters.Add(newCharacter);
             _dbContext.SaveChanges();
-            return Ok($"{newCharacter.Id}");
+            return Ok(newCharacter);
         }
         catch (Exception e)
         {
@@ -159,7 +159,7 @@ public class CharacterController : ControllerBase
                     : null,
                 IsApproved = m.IsApproved
             })
-            .SingleOrDefaultAsync();
+            .ToListAsync();
 
         if (membershipDto == null)
             return Forbid();

@@ -110,7 +110,7 @@ public class CampaignController : ControllerBase
 
         var campaigns = await _dbContext.Campaigns
             .Where(c => c.CampaignMemberships.Any(m => m.PlayerUser.Id == user.Id))
-            .Select(c => new CampaignDTO
+            .Select(c => new
             {
                 Id = c.id,
                 Name = c.Name,
@@ -121,20 +121,20 @@ public class CampaignController : ControllerBase
                     Id = c.DMId,
                     UserName = c.DM.UserName
                 },
-                CampaignMemberships = c.CampaignMemberships
+                CampaignMemberships = c.CampaignMemberships.Count
             }).ToListAsync();
 
         return Ok(campaigns);
     }
 
-    [HttpPost("getPublicCampaigns")]
+    [HttpGet("getPublicCampaigns")]
     public async Task<IActionResult> GetPublicCampaigns()
     {
         var campaigns = await _dbContext.Campaigns
             .Where(m => m.IsPublic)
             .Include(c => c.DM)
             .Include(c => c.CampaignMemberships)
-            .Select(c => new CampaignDTO
+            .Select(c => new
             {
                 Id = c.id,
                 Name = c.Name,
@@ -145,14 +145,14 @@ public class CampaignController : ControllerBase
                     Id = c.DMId,
                     UserName = c.DM.UserName,
                 },
-                CampaignMemberships = c.CampaignMemberships
+                CampaignMemberships = c.CampaignMemberships.Count
             })
             .ToListAsync();
 
         return Ok(campaigns);
     }
 
-    [HttpPost("requestJoinCampaignId")]
+    [HttpGet("requestJoinCampaignId/{id}")]
     public async Task<IActionResult> RequestJoinCampaignId(string id)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -210,7 +210,7 @@ public class CampaignController : ControllerBase
         }
     }
 
-    [HttpPost("approveJoinRequest")]
+    [HttpGet("approveJoinRequest/{campaignMembershipId}")]
     public async Task<IActionResult> ApproveJoinRequest(string campaignMembershipId)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -232,7 +232,7 @@ public class CampaignController : ControllerBase
         return Ok();
     }
     
-    [HttpPost("denyJoinRequest")]
+    [HttpGet("denyJoinRequest/{campaignMembershipId}")]
     public async Task<IActionResult> DenyJoinRequest(string campaignMembershipId)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -249,7 +249,7 @@ public class CampaignController : ControllerBase
         if (campaign == null) return NotFound();
         if(campaign.DMId != user.Id) return Unauthorized();
         
-        campaignMembership.IsApproved = false;
+        _dbContext.CampaignMemberships.Remove(campaignMembership);
         await _dbContext.SaveChangesAsync();
         return Ok();
     }
