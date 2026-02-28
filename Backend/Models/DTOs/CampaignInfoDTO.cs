@@ -7,5 +7,5 @@ public class CampaignInfoDTO
     public ushort MaxPlayers { get; set; }
     public bool IsPublic { get; set; }
     public string? Location { get; set; }
-    public string setting { get; set; }
+    public string Setting { get; set; }
 }

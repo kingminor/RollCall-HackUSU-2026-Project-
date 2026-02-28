@@ -3,12 +3,12 @@ using Backend.Models.Enums;
 
 public class CampaignFiltersDTO
 {
-    public ExperienceLevel? experienceLevel { get; set; }
-    public CampaignLocationType? campaignLoacationType { get; set; }
-    public CampaignStatus? status { get; set; }
-    public PreferredPlaystyle? preferredPlaystyle { get; set; }
-    public CampaignTone? campaignTone { get; set; }
-    public SessionFrequency? sessionFrequency { get; set; }
-    public StatSystem? statSystem { get; set; }
-    ContentMaturity? contentMaturity { get; set; }
+    public ExperienceLevel? ExperienceLevel { get; set; }
+    public CampaignLocationType? CampaignLocationType { get; set; }
+    public CampaignStatus? Status { get; set; }
+    public PreferredPlaystyle? PreferredPlaystyle { get; set; }
+    public CampaignTone? CampaignTone { get; set; }
+    public SessionFrequency? SessionFrequency { get; set; }
+    public StatSystem? StatSystem { get; set; }
+    public ContentMaturity? ContentMaturity { get; set; }
 }

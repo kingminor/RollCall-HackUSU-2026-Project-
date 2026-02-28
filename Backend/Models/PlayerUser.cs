@@ -9,4 +9,5 @@ public class PlayerUser : IdentityUser
     public List<string> CharacterIds { get; set; } = new List<string>();
     public DateTime LastUpdated { get; set; } = DateTime.Now;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+    
 }
