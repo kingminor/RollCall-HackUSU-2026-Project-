@@ -110,32 +110,38 @@ public class CharacterController : ControllerBase
         
         return Ok(characters);
     }
-    [HttpPost("getCampaignMembership")]
-    public async Task<IActionResult> GetCampaignMembership(StringDTO campaignId)
+    
+    [HttpGet("memberships/{campaignId}")]
+    public async Task<IActionResult> GetCampaignMembership(string campaignId)
     {
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null) return Unauthorized();
+        if (string.IsNullOrEmpty(campaignId))
+            return BadRequest();
 
-        var campaign = await _dbContext.Campaigns
-            .FindAsync(campaignId.String);
-        
-        if (campaign == null) return NotFound();
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+            return Unauthorized();
+
+        var campaign = await _dbContext.Campaigns.FindAsync(campaignId);
+        if (campaign == null)
+            return NotFound();
 
         if (campaign.DMId == user.Id)
         {
-            var campaigns = await _dbContext.CampaignMemberships
-                .Where(m => m.CampaignId == campaignId.String)
+            var memberships = await _dbContext.CampaignMemberships
+                .Where(m => m.CampaignId == campaignId)
                 .ToListAsync();
 
-            return Ok(campaigns);
+            return Ok(memberships);
         }
-        else
-        {
-            var myCampaign = await _dbContext.CampaignMemberships
-                .Where(m => m.CampaignId == campaignId.String && m.PlayerUserId == user.Id)
-                .ToListAsync();
-            
-            return Ok(myCampaign);
-        }
+
+        var membership = await _dbContext.CampaignMemberships
+            .SingleOrDefaultAsync(m => 
+                m.CampaignId == campaignId &&
+                m.PlayerUserId == user.Id);
+
+        if (membership == null)
+            return Forbid();
+
+        return Ok(membership);
     }
 }
