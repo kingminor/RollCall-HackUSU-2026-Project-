@@ -110,7 +110,7 @@ public class CampaignController : ControllerBase
 
         var campaigns = await _dbContext.Campaigns
             .Where(c => c.CampaignMemberships.Any(m => m.PlayerUser.Id == user.Id))
-            .Select(c => new CampaignDTO
+            .Select(c => new
             {
                 Id = c.id,
                 Name = c.Name,
@@ -121,7 +121,7 @@ public class CampaignController : ControllerBase
                     Id = c.DMId,
                     UserName = c.DM.UserName
                 },
-                CampaignMemberships = c.CampaignMemberships
+                CampaignMemberships = c.CampaignMemberships.Count
             }).ToListAsync();
 
         return Ok(campaigns);
@@ -134,7 +134,7 @@ public class CampaignController : ControllerBase
             .Where(m => m.IsPublic)
             .Include(c => c.DM)
             .Include(c => c.CampaignMemberships)
-            .Select(c => new CampaignDTO
+            .Select(c => new
             {
                 Id = c.id,
                 Name = c.Name,
@@ -145,7 +145,7 @@ public class CampaignController : ControllerBase
                     Id = c.DMId,
                     UserName = c.DM.UserName,
                 },
-                CampaignMemberships = c.CampaignMemberships
+                CampaignMemberships = c.CampaignMemberships.Count
             })
             .ToListAsync();
 
