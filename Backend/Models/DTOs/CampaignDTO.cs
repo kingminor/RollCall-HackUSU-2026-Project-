@@ -12,4 +12,5 @@ public class CampaignDTO
     public string? Setting { get; set; }
     
     public UserDTO DM { get; set; }
+    public List<CampaignMembership>  CampaignMemberships { get; set; }
 }
