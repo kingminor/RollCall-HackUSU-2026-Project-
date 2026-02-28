@@ -109,14 +109,25 @@ public class CampaignController : ControllerBase
         if (user == null) return Unauthorized();
 
         var campaigns = await _dbContext.Campaigns
-            .Where(c => c.CampaignMemberships
-                .Any(m => m.PlayerUser.Id == user.Id))
-            .ToListAsync();
+            .Where(c => c.CampaignMemberships.Any(m => m.PlayerUser.Id == user.Id))
+            .Select(c => new CampaignDTO
+            {
+                Id = c.id,
+                Name = c.Name,
+                Description = c.Description,
+                IsPublic = c.IsPublic,
+                DM = new UserDTO
+                {
+                    Id = c.DMId,
+                    UserName = c.DM.UserName
+                },
+                CampaignMemberships = c.CampaignMemberships
+            }).ToListAsync();
 
         return Ok(campaigns);
     }
 
-    [HttpGet("getPublicCampaigns")]
+    [HttpPost("getPublicCampaigns")]
     public async Task<IActionResult> GetPublicCampaigns()
     {
         var campaigns = await _dbContext.Campaigns
