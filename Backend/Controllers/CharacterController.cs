@@ -124,7 +124,7 @@ public class CharacterController : ControllerBase
         if (campaign.DMId == user.Id)
         {
             var campaigns = await _dbContext.CampaignMemberships
-                .Where(m => m.CampaignId == campaignId)
+                .Where(m => m.CampaignId == campaignId.String)
                 .ToListAsync();
 
             return Ok(campaigns);
@@ -132,7 +132,7 @@ public class CharacterController : ControllerBase
         else
         {
             var myCampaign = await _dbContext.CampaignMemberships
-                .Where(m => m.CampaignId == campaignId && m.PlayerUserId == user.Id)
+                .Where(m => m.CampaignId == campaignId.String && m.PlayerUserId == user.Id)
                 .ToListAsync();
             
             return Ok(myCampaign);
