@@ -117,7 +117,7 @@ public class CharacterController : ControllerBase
         if (user == null) return Unauthorized();
 
         var campaign = await _dbContext.Campaigns
-            .FindAsync(campaignId);
+            .FindAsync(campaignId.String);
         
         if (campaign == null) return NotFound();
 
