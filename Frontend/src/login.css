@@ -54,11 +54,11 @@ svg {
         padding: 2% 0;
     }
     button  {
-        margin: 5% 30%;
+        margin: auto;
         background-color: saddlebrown;
         border-radius: 10px;
         height: 30px;
-        width: 100px;
+        width: 60%;
         border: 2px solid saddlebrown;
     }
     button:hover {
