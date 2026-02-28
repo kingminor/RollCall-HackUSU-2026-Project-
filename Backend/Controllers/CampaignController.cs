@@ -249,7 +249,7 @@ public class CampaignController : ControllerBase
         if (campaign == null) return NotFound();
         if(campaign.DMId != user.Id) return Unauthorized();
         
-        campaignMembership.IsApproved = false;
+        _dbContext.CampaignMemberships.Remove(campaignMembership);
         await _dbContext.SaveChangesAsync();
         return Ok();
     }
